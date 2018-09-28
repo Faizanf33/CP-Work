@@ -38,22 +38,48 @@ int numlength(int x){
 }
 
 char maxChar(string str){
-	int size = str.length();
 	char max = str[0];
-	for (int i=1; i<size; i++)
-		if (str[i] > char(max))
+	for (int i=1; i<str.length(); i++)
+		if (str[i] > max)
 			max = str[i];
 			
 	return max;
 }
 
+void print(int a[], int size){
+	for (int i=0; i<size; i++)
+		cout << "Value " << i+1 << " is : " << a[i] << endl;
+	
+}
+
+void reversePrint(int a[], int size){
+	for (size; size>0; size--)
+		cout << "Value " << size << " is : " << a[size-1] << endl;
+	
+}
+
+void input(int a[], int size){
+	for (int i=0; i<size; i++){
+		cout << "Enter value " << i+1 << " : ";
+		cin >> a[i];
+
+	}				
+	print(a, size);
+	cout << endl;
+	reversePrint(a, size);
+}
+
+
 int main(void){
-	cout << power(4, 1) << endl;
-	cout << Max("My name is Faizan Ahmad", "Hello World!", "What is your name?") << endl;
-	cout << Max("Hello", "Hell0", "Hell1") << endl;
+//	cout << power(4, 1) << endl;
+//	cout << Max("My name is Faizan Ahmad", "Hello World!", "What is your name?") << endl;
+//	cout << Max("Hello", "Hell0", "Hell1") << endl;
 //	range(0, 21);
-	cout << numlength(2345) << endl; 
-	cout << maxChar("Hamza");
-	cout << maxChar("Do i know you?");
+//	cout << numlength(2345) << endl; 
+//	cout << maxChar("Hamza");
+//	cout << maxChar("Do i know you?");
+	int arr[5];
+	input(arr, 5);	
+
 	return 0;
 }
