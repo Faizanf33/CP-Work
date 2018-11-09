@@ -17,7 +17,7 @@ Muffin
 0.99
 H I J
 French toast
-1
+10
 0.3
 10
 1.99
