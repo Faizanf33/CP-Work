@@ -28,12 +28,12 @@ void printCheck(menuItemType menuList[], int size, int order[]){
 	 setw(10) << " PRICE/ITEM " << 
 	 setw(8) << " INGREDIENTS	|" << endl;
 	for (int i=0; i<size; i++){
-		if (order[i] == 1){
+		if (order[i] != 0){
 			tax += menuList[i].tax;
-			amount += menuList[i].charges;
+			amount += menuList[i].charges * order[i];
 			cout << "|["<< (i+1) <<"] ";
 			cout << setw(15) << left << menuList[i].item_name; 
-			cout << setw(6) << right << 1;
+			cout << setw(6) << right << order[i];
 			cout << fixed << setprecision(2) << setw(9) << right << "$" <<menuList[i].charges;
 			cout << setw(3) << right << menuList[i].ingredients[0] << "," <<
 				setw(0) << left << menuList[i].ingredients[1] << "," <<
@@ -58,7 +58,7 @@ void showMenu(menuItemType menuList[], int size, int order[]){
 	 setw(10) << " CHARGES " << 
 	 setw(8) << " INGREDIENTS  |" << endl;
 	for (int i=0; i<size; i++){
-		if (order[i] == 0){
+		if (menuList[i].quantity > 0){
 			cout << "|["<< (i+1) <<"] ";
 			cout << setw(15) << left << menuList[i].item_name; 
 			cout << setw(6) << right << menuList[i].quantity;
@@ -106,11 +106,12 @@ int main(void){
 			showMenu(menuList, size, order);
 			cout << "\nSelect choice [1 - 8] / finalize order [0]: ";
 			cin >> choice;
-			if (order[choice-1] == 1){
+			if (menuList[choice-1].quantity == 0){
 				cout << "Already selected!" << endl;
 			}
 			else if (choice >= 1 && choice <= 8){
-				order[choice-1] = 1;
+				order[choice-1]++;
+				menuList[choice-1].quantity--;
 			}
 			else if (choice > 8){
 				cout << "Invalid choice!" << endl;
