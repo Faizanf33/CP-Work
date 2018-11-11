@@ -1,3 +1,12 @@
+/* Question 4)
+Create  a class name it math ,it should contain the following functions
+1) Calculate LCM of three numbers :
+  int LCM(int a ,int b ,int c)
+2) Calculate HCF of three numbers:
+  int HCF(int a ,int b,int c)
+3) A function which returns the nth prime number for example
+  if inputs are 1,5,25 then the output should be :- 2,11,97 respectively.
+*/
 # include<iostream>
 using namespace std;
 
