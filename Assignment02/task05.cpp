@@ -1,5 +1,6 @@
 /*
-Q5) Write a program whose main function is merely a collection of variable declarations and function calls. This program reads a text and outputs the
+Q5) Write a program whose main function is merely a collection of variable
+declarations and function calls. This program reads a text and outputs the
 letters, together with their counts.
 */
 
@@ -12,23 +13,25 @@ using namespace std;
 struct Letter{
 	int lower_count,
 		upper_count;
-	
+
 	char upper,
-		lower;	
+		lower;
 };
 
 void printResult(fstream &fout, Letter letters[], int total_letters){
 	// converting int value to double
 	double total = total_letters, percent = 0;
 	fout << fixed << setprecision(0);
-	
+
 	for (int i=0; i<26; i++){
 		percent = (letters[i].lower_count / total) * 100;
-		
-		fout << letters[i].lower << " "<< letters[i].lower_count << " " << percent << "%\n";
+
+		fout << letters[i].lower << " "<< letters[i].lower_count <<
+		" " << percent << "%\n";
 
 		percent = (letters[i].upper_count / total) * 100;
-		fout << letters[i].upper << " "<< letters[i].upper_count << " " << percent << "%\n";
+		fout << letters[i].upper << " "<< letters[i].upper_count <<
+		" " << percent << "%\n";
 	}
 	fout.close();
 	return;
@@ -65,12 +68,12 @@ int count(fstream &fin, Letter letters[]){
 bool openFile(fstream &fstr, string &file, string fileIs){
 	cout << "Enter "<< fileIs << " file name : ";
 	cin >> file;
-	
+
 	if (fileIs == "input")
 		fstr.open(file.c_str());
 	else
-		fstr.open(file.c_str(), ios::app);	
-	
+		fstr.open(file.c_str(), ios::app);
+
 	if (fstr.is_open())
 		return true;
 	else
@@ -96,7 +99,7 @@ int main(void){
 		// initializing letters array with all letters & and their count to zero
 		init(letters);
 		int total_letters = count(fin, letters);
-		
+
 		fstream fout;
 		openFile(fout, file, "output");
 		printResult(fout, letters, total_letters);
