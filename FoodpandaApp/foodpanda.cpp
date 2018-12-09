@@ -13,9 +13,16 @@ struct Foodpanda{
     string *hotel_contact;
     string *hotel_location;
     string *hotel_city;
+    string *hotel_items;
+    int item_price;
+    string *hotel_deals;
+    int deal_price;
+
+    double total_amount;
 
     // prototypes used in Foodpanda app
     bool getdata();
+    bool getdetails();
     string upper(string str);
 
     void welcome(winsize window);
@@ -32,6 +39,7 @@ int main(){
   struct winsize window;
 
   app.getdata();
+  app.getdetails();
 
   cout << "\x1B[32m";   // change text color to green
 
@@ -111,6 +119,27 @@ bool Foodpanda :: getdata()
   }
 
   fin.close();
+  return true;
+}
+
+bool Foodpanda :: getdetails()
+{
+  ifstream file("foodbase.csv");
+  int size = 0;
+  string temp;
+  while(not file.eof())
+  {
+    getline(file, temp);
+    size++;
+  }
+  file.close();
+
+  file.open("foodbase.csv");
+  
+  for(int i = 0; i < size; i++)
+  {
+
+  }
   return true;
 }
 
