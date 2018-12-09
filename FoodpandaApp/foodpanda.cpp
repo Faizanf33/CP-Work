@@ -7,17 +7,14 @@
 
 using namespace std;
 
-class Foodpanda{
-  private:
+struct Foodpanda{
     int filesize;
     string *hotel_name;
     string *hotel_contact;
     string *hotel_location;
     string *hotel_city;
 
-  public:
     // prototypes used in Foodpanda app
-    Foodpanda();
     bool getdata();
     string upper(string str);
 
@@ -27,13 +24,14 @@ class Foodpanda{
     int locate(string desired, int index[], string on);
     void display(int window, bool all);
     void displaydetail(int index, int window);
-    ~Foodpanda();
 };
 
 /////////////////// Start of Main ///////////////////////////
 int main(){
   Foodpanda app;
   struct winsize window;
+
+  app.getdata();
 
   cout << "\x1B[32m";   // change text color to green
 
@@ -62,18 +60,6 @@ int main(){
   return 0;
 }
 /////////////////// End of Main ///////////////////////////
-
-// call to constructor
-Foodpanda :: Foodpanda()
-{
-  getdata();
-}
-
-Foodpanda :: ~Foodpanda()
-{
-  //delete[] hotel_city, hotel_name, hotel_contact, hotel_location;
-}
-
 
 /* This method receives data from file
    and sets data to pointed array(s)
