@@ -135,7 +135,7 @@ bool Foodpanda :: getdetails()
   file.close();
 
   file.open("foodbase.csv");
-  
+
   for(int i = 0; i < size; i++)
   {
 
@@ -224,7 +224,6 @@ void Foodpanda :: displayboard(winsize window)
   else if (choice == 51)
     display(window.ws_col, true);
 
-  cin.get();
   return;
 }
 void Foodpanda :: display(int window, bool all)
@@ -261,24 +260,36 @@ void Foodpanda :: display(int window, bool all)
   }
 
   cout << endl;
-  int index = -1;
+  int index;
   fillspace(window / 6);
   cout << "[:] For detail: ";
   cin >> index;
 
+  cout << endl;
   fillspace(window / 6);
 
-  if (all and index > 0 and index <= filesize)
-    displaydetail(index - 1, window);
-
-  else if (index > 0 and index <= 5)
-    displaydetail(index - 1, window);
+  if (index > 0 and index <= filesize)
+    if (all or index <= 5)
+    {
+      system("clear");
+      displaydetail(index - 1, window);
+    }
 
   else
     cout << "[Invalid entry!]" << endl;
 
+  cout << endl;
+  fillspace(window / 6);
+  cout << "[Enter to retry] \t [Esc to exit]\n";
+  cout << endl;
+
+  index = cin.get();
   cin.get();
-  return;
+  if (index == 27)
+    return;
+
+  else if (index == 10)
+    return display(window, all);
 }
 
 
@@ -293,39 +304,56 @@ void Foodpanda :: search(int window)
   fillspace(window / 6);
   cout << "[2] Search by contact\n";
   fillspace(window / 6);
-  cout << "[3] Search by location\n\n";
-  fillspace(window / 6);
   cout << "[Esc to exit]\n";
   fillspace(window / 6);
-  cout << "Enter choice[1 - 3]: ";
+  cout << "Enter choice[1 - 2]: ";
   string input;
-  int index[filesize];// = {0};
+  int index[filesize] = {0};
 
   cin >> input;
+  cout << endl;
+  fillspace(window / 6);
   if (input == "1")
-    fillspace(window / 6);
+  {
     cout << "Enter name: ";
     cin >> input;
     locate(input, index, "hotel_name");
+  }
+  else if (input == "2")
+  {
+    cout << "Enter number: ";
+    cin >> input;
+    locate(input, index, "hotel_contact");
+  }
 
+  system("clear");
+  for (int i = 0; i < filesize; i++)
+  {
+    if (index[i] == 1)
+      displaydetail(i, window);
+  }
+
+  cin.get();
   return;
 }
 
 int Foodpanda :: locate(string desired, int index[], string on)
 {
-  for (int i = 0; i < filesize; i++)
-  {
-    if (on == "hotel_name" and upper(hotel_name[i]).find(upper(desired)))
-      cout << hotel_name[i] << endl;
-  }
+    if (on == "hotel_name")
+      for (int i = 0; i < filesize; i++)
+        if (upper(hotel_name[i]) == upper(desired))
+          index[i] = 1;
 
-  cin.get();
+    else if (on == "hotel_contact")
+      for (int i = 0; i < filesize; i++)
+        if (upper(hotel_contact[i]) == upper(desired))
+          index[i] = 1;
+
   return *index;
 }
 
 void Foodpanda :: displaydetail(int index, int window)
 {
-  system("clear");
   fillspace((window * 4) + window / 6);
 
   cout << "[Detail Info]\n\n";
