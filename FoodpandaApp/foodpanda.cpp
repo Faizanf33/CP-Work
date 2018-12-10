@@ -15,11 +15,11 @@ struct Foodpanda{
     string *hotel_city;
 
     int detailsize;
-    string *hotel_items;
-    int item_price;
+    string **hotel_items;
+    int **item_price;
 
-    string *hotel_deals;
-    int deal_price;
+    string **hotel_deals;
+    int **deal_price;
 
     double amount_due;
 
@@ -45,7 +45,7 @@ int main(){
   struct winsize window;
 
   app.getdata();
-  app.getdetails();
+  app.getdetail();
 
   cout << "\x1B[32m";   // change text color to green
 
@@ -81,8 +81,8 @@ int main(){
 bool Foodpanda :: getdata()
 {
   string file = "data.csv", line;
-  // initializing filesize
-  filesize = 0;
+  // initializing datasize
+  datasize = 0;
 
   // open file and count number of lines
   ifstream fin(file.c_str());
@@ -91,7 +91,7 @@ bool Foodpanda :: getdata()
     while(not fin.eof())
     {
       getline(fin, line);
-      filesize++;   // this counts number of lines
+      datasize++;   // this counts number of lines
     }
     // close the file
     fin.close();
@@ -111,12 +111,12 @@ bool Foodpanda :: getdata()
   fin.open(file.c_str());
 
   // dynamic memory allocation
-  hotel_name = new string[filesize];
-  hotel_contact = new string[filesize];
-  hotel_location = new string[filesize];
-  hotel_city = new string[filesize];
+  hotel_name = new string[datasize];
+  hotel_contact = new string[datasize];
+  hotel_location = new string[datasize];
+  hotel_city = new string[datasize];
 
-  for(int i = 0; i < filesize; i++)
+  for(int i = 0; i < datasize; i++)
   {
     getline(fin, hotel_name[i], ',');
     getline(fin, hotel_contact[i], ',');
@@ -128,25 +128,44 @@ bool Foodpanda :: getdata()
   return true;
 }
 
-bool Foodpanda :: getdetails()
+bool Foodpanda :: getdetail()
 {
   ifstream file("fooditems.csv");
   detailsize = 0;
-  string temp;
-  while(not file.eof())
-  {
-    getline(file, temp);
-    detailsize++;
-  }
-  file.close();
-
-  file.open("fooditems.csv");
-
-  for(int i = 0; i < detailsize; i++)
-  {
-
-  }
-  return true;
+  // string temp;
+  // while(not file.eof())
+  // {
+  //   getline(file, temp);
+  //   detailsize++;
+  // }
+  // file.close();
+  //
+  // file.open("fooditems.csv");
+  // int list = 0;
+  // string name;
+  // char comma;
+  // hotel_items = new string*[detailsize];
+  // item_price = new int*[detailsize];
+  // for(int i = 0; i < detailsize; i++)
+  // {
+  //   getline(file, name, ',');
+  //   file >> list;
+  //   getchar();
+  //   // file.ignore(',', 0);
+  //   hotel_items[i] = new string[list + 1];
+  //   item_price[i] = new int[list + 1];
+  //   hotel_items[i][0] = name;
+  //   item_price[i][0] = list;
+  //
+  //   for (int j = 1; j < list; j++) {
+  //     getline(file, hotel_items[i][j], ',');
+  //     file >> item_price[i][j];
+  //     file.ignore(',');
+  //     cout << item_price[i][j] << ' ';
+  //   }
+  //   cout << endl;
+  // }
+  // return true;
 }
 
 // this method CAPITALIZES a given string
@@ -241,7 +260,7 @@ void Foodpanda :: display(int window, bool all)
   if (all)
   {
     fillspace(window / 12);
-    for (int i = 0; i < filesize - 1; i++)
+    for (int i = 0; i < datasize - 1; i++)
     {
       cout << '[' << i + 1 << ']' << ' ';
       cout << setw(20) << left << upper(hotel_name[i]);
@@ -274,7 +293,7 @@ void Foodpanda :: display(int window, bool all)
   cout << endl;
   fillspace(window / 6);
 
-  if (index > 0 and index <= filesize)
+  if (index > 0 and index <= datasize)
     if (all or index <= 5)
     {
       system("clear");
@@ -313,7 +332,7 @@ void Foodpanda :: search(int window)
   fillspace(window / 6);
   cout << "Enter choice[1 - 2]: ";
   string input;
-  int index[filesize] = {0};
+  int index[datasize] = {0};
 
   cin >> input;
   cout << endl;
@@ -332,7 +351,7 @@ void Foodpanda :: search(int window)
   }
 
   system("clear");
-  for (int i = 0; i < filesize; i++)
+  for (int i = 0; i < datasize; i++)
   {
     if (index[i] == 1)
       displayinfo(i, window);
@@ -345,12 +364,12 @@ void Foodpanda :: search(int window)
 int Foodpanda :: locate(string desired, int index[], string on)
 {
     if (on == "hotel_name")
-      for (int i = 0; i < filesize; i++)
+      for (int i = 0; i < datasize; i++)
         if (upper(hotel_name[i]) == upper(desired))
           index[i] = 1;
 
     else if (on == "hotel_contact")
-      for (int i = 0; i < filesize; i++)
+      for (int i = 0; i < datasize; i++)
         if (upper(hotel_contact[i]) == upper(desired))
           index[i] = 1;
 
