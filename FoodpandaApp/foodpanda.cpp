@@ -8,29 +8,35 @@
 using namespace std;
 
 struct Foodpanda{
-    int filesize;
+    int datasize;
     string *hotel_name;
     string *hotel_contact;
     string *hotel_location;
     string *hotel_city;
+
+    int detailsize;
     string *hotel_items;
     int item_price;
+
     string *hotel_deals;
     int deal_price;
 
-    double total_amount;
+    double amount_due;
 
     // prototypes used in Foodpanda app
     bool getdata();
-    bool getdetails();
+    bool getdetail();
     string upper(string str);
 
     void welcome(winsize window);
     void displayboard(winsize window);
+
     void search(int window);
     int locate(string desired, int index[], string on);
+
     void display(int window, bool all);
-    void displaydetail(int index, int window);
+    void displayinfo(int index, int window);
+
 };
 
 /////////////////// Start of Main ///////////////////////////
@@ -124,19 +130,19 @@ bool Foodpanda :: getdata()
 
 bool Foodpanda :: getdetails()
 {
-  ifstream file("foodbase.csv");
-  int size = 0;
+  ifstream file("fooditems.csv");
+  detailsize = 0;
   string temp;
   while(not file.eof())
   {
     getline(file, temp);
-    size++;
+    detailsize++;
   }
   file.close();
 
-  file.open("foodbase.csv");
+  file.open("fooditems.csv");
 
-  for(int i = 0; i < size; i++)
+  for(int i = 0; i < detailsize; i++)
   {
 
   }
@@ -272,7 +278,7 @@ void Foodpanda :: display(int window, bool all)
     if (all or index <= 5)
     {
       system("clear");
-      displaydetail(index - 1, window);
+      displayinfo(index - 1, window);
     }
 
   else
@@ -329,7 +335,7 @@ void Foodpanda :: search(int window)
   for (int i = 0; i < filesize; i++)
   {
     if (index[i] == 1)
-      displaydetail(i, window);
+      displayinfo(i, window);
   }
 
   cin.get();
@@ -351,7 +357,7 @@ int Foodpanda :: locate(string desired, int index[], string on)
   return *index;
 }
 
-void Foodpanda :: displaydetail(int index, int window)
+void Foodpanda :: displayinfo(int index, int window)
 {
   fillspace((window * 4) + window / 6);
 
