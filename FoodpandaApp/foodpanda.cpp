@@ -284,12 +284,11 @@ void Foodpanda :: display(int window, bool all)
   cout << endl;
 
   index = cin.get();
-  cin.get();
   if (index == 27)
     return;
 
-  else if (index == 10)
-    return display(window, all);
+  cin.get();
+  return display(window, all);
 }
 
 
