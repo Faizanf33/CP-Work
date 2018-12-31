@@ -335,22 +335,24 @@ void Foodpanda :: search(int window)
   int index[datasize] = {0};
 
   cin >> input;
+  cin.ignore();
   cout << endl;
   fillspace(window / 6);
   if (input == "1")
   {
     cout << "Enter name: ";
-    cin >> input;
+    getline(cin, input);
     locate(input, index, "hotel_name");
   }
   else if (input == "2")
   {
     cout << "Enter number: ";
-    cin >> input;
+    getline(cin, input);
+    cout << input;
     locate(input, index, "hotel_contact");
   }
 
-  system("clear");
+  // system("clear");
   for (int i = 0; i < datasize; i++)
   {
     if (index[i] == 1)

@@ -73,10 +73,10 @@ class math{
 int main(void){
   math m1;
   // nth prime
-  cout << m1.nth_prime(7) << endl;
+  cout << m1.nth_prime(100) << endl;
   // LCM
-  cout << m1.LCM(2, 14, 7) << endl;
-  // HCF
-  cout << m1.HCF(2, 8, 14) << endl;
+   cout << m1.LCM(2, 14, 7) << endl;
+  // // HCF
+   cout << m1.HCF(16, 8, 24) << endl;
   return 0;
 }
