@@ -1,43 +1,8 @@
 #include<iostream>
 #include<fstream>
-#include<sys/ioctl.h>
-#include<unistd.h>
-#include<string>
-#include<iomanip>
+#include "foodpanda.h"
 
 using namespace std;
-
-struct Foodpanda{
-    int datasize;
-    string *hotel_name;
-    string *hotel_contact;
-    string *hotel_location;
-    string *hotel_city;
-
-    int detailsize;
-    string **hotel_items;
-    int **item_price;
-
-    string **hotel_deals;
-    int **deal_price;
-
-    double amount_due;
-
-    // prototypes used in Foodpanda app
-    bool getdata();
-    bool getdetail();
-    string upper(string str);
-
-    void welcome(winsize window);
-    void displayboard(winsize window);
-
-    void search(int window);
-    int locate(string desired, int index[], string on);
-
-    void display(int window, bool all);
-    void displayinfo(int index, int window);
-
-};
 
 /////////////////// Start of Main ///////////////////////////
 int main(){
